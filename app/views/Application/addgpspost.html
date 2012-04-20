@@ -1,0 +1,68 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<script type="text/javascript">
+
+function getChefid(){
+	var shopid = $("#shopid option:selected").val();
+	data = {shopid:shopid};
+	$("#chefid").empty();
+		$.ajax({
+		url: '/getChefid',
+		data:data,
+		type: 'POST',
+		success: function(data) {
+			if(data.status == "success"){
+					var typeObj = data.returnData;
+					for(var i=0;i<typeObj.length;i++){
+						$("#chefid").append("<option value="+typeObj[i].id+">"+typeObj[i].title+"</option>");		
+					}
+			}	
+		}
+	});	
+}
+	
+</script>
+
+
+<form name="form1" id="form1" action="@{Application.addgpspost()}" method="POST"
+	enctype="multipart/form-data">
+	<div><h3>【后台管理】--【GPS】</h3></div>
+<table>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+
+</table>
+<table align="center">
+	<tr>
+		<td>经度:</td>
+		<td><input type="text" name="gps.lon" /></td>
+	</tr>
+	<tr>
+		<td>纬度:</td>
+		<td><input type="text" name="gps.lat" /></td>
+	</tr>
+    <tr>
+		<td>用户:</td>
+		<td><input type="text" name="gps.userid" /></td>
+	</tr>
+	<tr>
+	<td></td>
+		<td>
+		<table>
+			<tr><td>
+				<input type="reset" class="search-submit" value="清空" />
+				</td>
+				<td>
+				<input type="submit" class="search-submit" value="添加" />
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+</form>
